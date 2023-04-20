@@ -1,7 +1,10 @@
 import React from 'react'
+import EmployeeForm from './components/EmployeeForm'
 
 export default function App() {
   return (
-    <div>App</div>
+    <div>
+      <EmployeeForm></EmployeeForm>
+    </div>
   )
 }
