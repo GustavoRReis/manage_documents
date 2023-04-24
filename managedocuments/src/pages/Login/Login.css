@@ -1,0 +1,30 @@
+* {
+  margin: 0;
+  border: 0;
+  padding: 0;
+}
+
+.page-login {
+  background-color: rgb(35, 35, 36);
+  height: 100vh;
+  display: flex;
+}
+
+.page-login p {
+  text-align: center;
+  color: #7c7c7c;
+  font-size: 14px;
+}
+
+.box-login {
+  background-color: #F2F2F2;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+  width: 400px;
+  margin: auto;
+  height: 450px;
+}
