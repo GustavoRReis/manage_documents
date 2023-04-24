@@ -10,6 +10,7 @@ export default function Register() {
         <TextField id="email-login" label="Email" type="email" />
         <TextField id="password-login" label="Password" type="password" />
         <Button variant="contained">Register</Button>
+        <p> © Desenvolvido por Gustavo Reis</p>
       </Box>
     </div>
   );

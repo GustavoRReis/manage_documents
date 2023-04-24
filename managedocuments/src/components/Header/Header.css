@@ -1,0 +1,11 @@
+.header-app {
+  background-color: rgb(35, 35, 36);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-app Button {
+  margin: 24px;
+  width: 100px;
+}
