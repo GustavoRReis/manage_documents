@@ -2,7 +2,10 @@ import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import { db } from '../../Config/firebase';
+import { addDoc, collection } from 'firebase/firestore';
 import './EmployeeForm.css';
+import { Redirect } from 'react-router-dom';
 
 export default function EmployeeForm() {
   const initialState = {
@@ -19,6 +22,7 @@ export default function EmployeeForm() {
   };
 
   const [employeeInfo, setEmployeeInfo] = useState(initialState);
+  const [shouldRedirect, setShouldRedirect] = useState(false);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -31,8 +35,9 @@ export default function EmployeeForm() {
       (value) => value !== ''
     );
     if (isFormValid) {
-      console.log(employeeInfo);
+      addFormDb(employeeInfo)
       handleFormReset();
+      setShouldRedirect(true);
     } else {
       alert(
         'Por favor, preencha todos os campos antes de enviar o formulário.'
@@ -40,12 +45,18 @@ export default function EmployeeForm() {
     }
   };
 
+  const addFormDb = async (data) => {
+    const funcionariosRef = collection(db, 'employees');
+    await addDoc(funcionariosRef, (data));
+  }
+
   const handleFormReset = () => {
     setEmployeeInfo(initialState);
   };
 
   return (
     <div>
+      {shouldRedirect && <Redirect to="/home" />}
       <Box
         className="box-form"
         component="form"
@@ -58,7 +69,6 @@ export default function EmployeeForm() {
           padding: '20px',
           width: '500px',
           margin: 'auto',
-          marginTop: '2%',
           height: '100hv',
         }}
         noValidate
@@ -153,6 +163,7 @@ export default function EmployeeForm() {
           onChange={handleInputChange}
         />
         <Button
+          onClick={(e) => handleSubmit(e)}
           sx={{
             borderRadius: '16px',
             width: '150px',

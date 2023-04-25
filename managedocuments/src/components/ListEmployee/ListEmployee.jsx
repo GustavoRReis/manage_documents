@@ -1,7 +1,13 @@
+import { FilePdf, NotePencil, Trash } from 'phosphor-react';
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './ListEmployee.css';
 
 export default function ListEmployee({ employees }) {
+  const deleteUser = (id) => {
+   alert(id);
+  };
+  console.log(employees)
   return (
     <table className="table-home">
       <thead>
@@ -11,24 +17,30 @@ export default function ListEmployee({ employees }) {
           <td>Setor</td>
           <td>Data de admissão</td>
           <td>Relatório</td>
-          <td>Editar</td>
+          <td></td>
         </tr>
       </thead>
 
       <tbody className="body-home">
         {employees.map((index) => {
           return (
-            <tr key={index.Nome}>
-              <th>{index.Nome}</th>
-              <th>{index.Cargo}</th>
-              <th>{index.Setor}</th>
-              <th>{index.DataDeAdmissao.replace(/(\d{2})(\d{2})(\d{4})/, '$1/$2/$3')}</th>
+            <tr key={index.id}>
+              <th>{index.name}</th>
+              <th>{index.position}</th>
+              <th>{index.sector}</th>
+              <th>{index.hireDate}</th>
               <th>
-                <button>Gerar PDF </button>
+                <Link>
+                  <FilePdf size={32} />
+                </Link>
               </th>
               <th>
-                <button>Editar</button>
-                <button>Excluir</button>
+                <Link>
+                  <NotePencil size={32} color={'blue'} />
+                </Link>
+                <button onClick={(e) => deleteUser(index.id)}>
+                  <Trash size={32} color={'red'} />
+                </button>
               </th>
             </tr>
           );
