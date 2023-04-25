@@ -1,0 +1,41 @@
+.table-home {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.table-home thead {
+  background-color: #333;
+  color: #fff;
+}
+
+.table-home tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.table-home tbody tr:hover {
+  background-color: #ddd;
+}
+
+.table-home td, .table-home th {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.table-home th {
+  font-weight: bold;
+}
+
+.table-home th:first-child,
+.table-home td:first-child {
+  padding-left: 20px;
+}
+
+.table-home th:last-child,
+.table-home td:last-child {
+  padding-right: 20px;
+}
+
+.body-home td {
+  color: #333;
+}

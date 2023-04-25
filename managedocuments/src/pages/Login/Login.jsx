@@ -19,18 +19,17 @@ export default function Login({ history }) {
     setUserLogin({ ...userLogin, [name]: value });
   };
 
-  const login = () => {
-    firebase
+const login = async () => {
+  try {
+    await firebase
       .auth()
-      .signInWithEmailAndPassword(userLogin.email, userLogin.password)
-      .then(() => {
-        alert('deu certo');
-      })
-      .catch((err) => {
-        setUserInvalid(true)
-        setMessage(err.message);
-      });
-  };
+      .signInWithEmailAndPassword(userLogin.email, userLogin.password);
+    alert('deu certo');
+  } catch (err) {
+    setUserInvalid(true);
+    setMessage(err.message.replace('Firebase: ', ''));
+  }
+};
 
   return (
     <div className="page-login">
