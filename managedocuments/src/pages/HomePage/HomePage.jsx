@@ -1,30 +1,23 @@
 import { Button, TextField } from '@mui/material';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from '../../components/Header/Header';
 import ListEmployee from '../../components/ListEmployee/ListEmployee';
 import './HomePage.css';
+import { db } from '../../Config/firebase';
+import { collection, getDocs } from 'firebase/firestore';
 
 export default function HomePage() {
-  const DATATESTE = [
-    {
-      name: 'Joao',
-      cargo: 'Vendedor',
-      setor: 'Vendas',
-      date: 5555,
-    },
-    {
-      name: 'Pedro',
-      cargo: 'Gerente',
-      setor: 'Vendas',
-      date: 5555,
-    },
-    {
-      name: 'Maria',
-      cargo: 'Desenvolvedora',
-      setor: 'Tecnologia',
-      date: 5555,
-    },
-  ];
+  const [employees, setEmployees] = useState([]);
+
+  useEffect(() => {
+    const fetchEmployees = async () => {
+      const querySnapshot = await getDocs(collection(db, 'employees'));
+      const docs = querySnapshot.docs.map((doc) => doc.data());
+      setEmployees(docs);
+      console.log(docs);
+    };
+    fetchEmployees();
+  }, []);
 
   return (
     <div>
@@ -40,7 +33,7 @@ export default function HomePage() {
           <Button variant="contained">Pesquisar</Button>
         </div>
       </div>
-      <ListEmployee employees={DATATESTE} />
+      <ListEmployee employees={employees} />
     </div>
   );
 }

@@ -18,11 +18,11 @@ export default function ListEmployee({ employees }) {
       <tbody className="body-home">
         {employees.map((index) => {
           return (
-            <tr key={index.name}>
-              <th>{index.name}</th>
-              <th>{index.cargo}</th>
-              <th>{index.setor}</th>
-              <th>{index.date}</th>
+            <tr key={index.Nome}>
+              <th>{index.Nome}</th>
+              <th>{index.Cargo}</th>
+              <th>{index.Setor}</th>
+              <th>{index.DataDeAdmissao.replace(/(\d{2})(\d{2})(\d{4})/, '$1/$2/$3')}</th>
               <th>
                 <button>Gerar PDF </button>
               </th>

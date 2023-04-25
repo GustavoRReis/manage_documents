@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import './Login.css';
 import logoTaugor from '../../images/logo-taugor.png';
-import firebase from '../../Config/firebase';
+import {app} from '../../Config/firebase';
 
 export default function Login({ history }) {
   const [userLogin, setUserLogin] = useState({
@@ -21,10 +21,10 @@ export default function Login({ history }) {
 
 const login = async () => {
   try {
-    await firebase
+    await app
       .auth()
       .signInWithEmailAndPassword(userLogin.email, userLogin.password);
-    alert('deu certo');
+    history.push('/home');
   } catch (err) {
     setUserInvalid(true);
     setMessage(err.message.replace('Firebase: ', ''));

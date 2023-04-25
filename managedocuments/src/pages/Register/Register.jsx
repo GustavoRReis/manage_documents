@@ -1,7 +1,7 @@
 import { Box, Button, TextField } from '@mui/material';
 import React, { useState } from 'react'
 import logoTaugor from '../../images/logo-taugor.png';
-import firebase from '../../Config/firebase';
+import {app} from '../../Config/firebase';
 
 export default function Register({history}) {
 
@@ -23,7 +23,7 @@ const registerUser = async () => {
     setMessage('Preencha todos os campos')
   }
  try {
-    await firebase
+    await app
       .auth()
       .createUserWithEmailAndPassword(userRegister.email, userRegister.password);
     history.push('/home')
