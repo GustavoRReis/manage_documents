@@ -5,11 +5,14 @@ import ListEmployee from '../../components/ListEmployee/ListEmployee';
 import './HomePage.css';
 import { db } from '../../Config/firebase';
 import { collection, deleteDoc, getDocs, doc } from 'firebase/firestore';
+import ConfirmDeleteDialog from '../../components/ConfirmDeleteDialog/ConfirmDeleteDialog';
 
 export default function HomePage({ history }) {
   const [employees, setEmployees] = useState([]);
   const [search, setSearch] = useState('');
   const [searchButton, setSearchButton] = useState('');
+  const [confirmDelete, setConfirmDelete] = useState(false);
+  const [idUser, setIdUser] = useState('');
 
   const fetchEmployees = async (searchValue) => {
     const querySnapshot = await getDocs(collection(db, 'employees'));
@@ -20,12 +23,19 @@ export default function HomePage({ history }) {
       );
     setEmployees(docs);
   };
-  
+
   const deleteUser = async (id) => {
     const funcionariosRef = doc(db, 'employees', id);
     await deleteDoc(funcionariosRef);
     fetchEmployees(search);
+    setConfirmDelete(false);
   };
+
+  const getId = (id) => {
+    setIdUser(id);
+    setConfirmDelete(true);
+  };
+
   useEffect(() => {
     fetchEmployees(search);
   }, [search]);
@@ -35,7 +45,6 @@ export default function HomePage({ history }) {
     setSearchButton(value);
   };
 
-
   return (
     <div>
       <Header />
@@ -44,7 +53,6 @@ export default function HomePage({ history }) {
           onClick={() => history.push('/home/register')}
           variant="contained"
         >
-          {' '}
           + Novo Cliente
         </Button>
         <div className="nav-search">
@@ -60,7 +68,13 @@ export default function HomePage({ history }) {
           </Button>
         </div>
       </div>
-      <ListEmployee employees={employees} deleteUser={deleteUser} />
+      <ListEmployee employees={employees} deleteUser={getId} />
+      {confirmDelete && (
+        <ConfirmDeleteDialog
+          handleDelete={() => deleteUser(idUser)}
+          handleCancel={() => setConfirmDelete(false)}
+        />
+      )}
     </div>
   );
 }
