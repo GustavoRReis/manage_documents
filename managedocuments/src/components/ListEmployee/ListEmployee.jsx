@@ -3,10 +3,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './ListEmployee.css';
 
-export default function ListEmployee({ employees }) {
-  const deleteUser = (id) => {
-   alert(id);
-  };
+export default function ListEmployee({ employees, deleteUser }) {
+
   console.log(employees)
   return (
     <table className="table-home">
@@ -35,7 +33,7 @@ export default function ListEmployee({ employees }) {
                 </Link>
               </th>
               <th>
-                <Link>
+                <Link to={`/home/edit/${index.id}`}>
                   <NotePencil size={32} color={'blue'} />
                 </Link>
                 <button onClick={(e) => deleteUser(index.id)}>
