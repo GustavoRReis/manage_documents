@@ -1,0 +1,27 @@
+.header-app {
+  background-color: rgb(35, 35, 36);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+}
+
+.header-app button {
+  margin: 0 8px 0 0;
+  width: 80px;
+  height: 32px;
+
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+@media screen and (min-width: 768px) {
+  .header-app button {
+    margin: 24px;
+    width: 100px;
+    height: 40px;
+    font-size: 16px;
+  }
+}

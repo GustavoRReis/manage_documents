@@ -1,0 +1,11 @@
+.box-form {
+  background-color: #F2F2F2;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 20px;
+  width: 500px;
+  margin: auto;
+}
+
