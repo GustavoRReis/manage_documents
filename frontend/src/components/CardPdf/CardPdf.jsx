@@ -2,14 +2,12 @@ import React from 'react';
 import './CardPdf.css';
 
 export default function CardPdf({ employeeInfo }) {
-
-  console.log(employeeInfo)
   return (
-    <div className='box-card-pdf'>
-      <div className='pic-profile'>
+    <div className="box-card-pdf">
+      <div className="pic-profile">
         <img src={employeeInfo.profilePicture} alt="profile-pic" />
       </div>
-      <div className='data-profile'>
+      <div className="data-profile">
         <div>
           <p>{`Nome: ${employeeInfo.name}`}</p>
           <p>{`Sexo: ${employeeInfo.gender}`}</p>

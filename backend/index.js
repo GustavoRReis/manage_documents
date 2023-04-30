@@ -1,7 +1,5 @@
 const express = require('express');
 const cors = require('cors');
-const PDFDocument = require('pdfkit');
-const request = require('request');
 const { employees, dataEmployees } = require('./Config/firebase');
 const app = express();
 const newPdfEmployee = require('./pdf/PdfEmployees');
@@ -13,6 +11,12 @@ app.get('/', async (req, res) => {
   const snapshot = await employees.get();
   const list = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
   res.send(list);
+});
+
+app.delete('/:id', async (req, res) => {
+  const { id } = req.params;
+  await employees.doc(id).delete();
+  res.status(204).send();
 });
 
 app.get('/dataEmployees', async (req, res) => {

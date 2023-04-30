@@ -3,8 +3,6 @@ import React, { useState, useEffect } from 'react';
 import Header from '../../components/Header/Header';
 import ListEmployee from '../../components/ListEmployee/ListEmployee';
 import './HomePage.css';
-import { db } from '../../Config/firebase';
-import { collection, deleteDoc, getDocs, doc } from 'firebase/firestore';
 import ConfirmDeleteDialog from '../../components/ConfirmDeleteDialog/ConfirmDeleteDialog';
 
 import axios from 'axios';
@@ -26,10 +24,13 @@ export default function HomePage({ history }) {
   };
 
   const deleteUser = async (id) => {
-    const funcionariosRef = doc(db, 'employees', id);
-    await deleteDoc(funcionariosRef);
-    fetchEmployees(search);
-    setConfirmDelete(false);
+    try {
+      await axios.delete(`http://localhost:3001/${id}`);
+      fetchEmployees(search);
+      setConfirmDelete(false);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const getId = (id) => {

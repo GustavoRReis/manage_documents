@@ -56,9 +56,6 @@ const handleUploadImage = (e) => {
   );
 };
 
-
-  console.log(imgUrl)
-
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setEmployeeInfo({ ...employeeInfo, [name]: value });
