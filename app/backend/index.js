@@ -25,7 +25,7 @@ app.get('/dataEmployees', async (req, res) => {
   res.send(list);
 });
 
-app.get('/pdf/:name', async (req, res) =>
+app.get('/pdfgenerate/:name', async (req, res) =>
   newPdfEmployee.employeeHistoryPdf(req, res)
 );
 

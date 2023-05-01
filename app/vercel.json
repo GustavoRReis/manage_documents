@@ -1,0 +1,26 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "app/front/**",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "app/back/**",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "app/back/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "app/front/$1",
+      "headers": {
+        "Cache-Control": "s-maxage=1, stale-while-revalidate"
+      }
+    }
+  ]
+}
