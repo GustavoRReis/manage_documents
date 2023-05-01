@@ -33,7 +33,7 @@ Na sua máquina você deve ter:
 - Para subir a aplicação no backend utilize o comando npm run dev dentro da pasta backend.
 - `npm run dev` 
 - Para subir o frontend utilize npm start dentro da pasta frontend:
-- `npm run db:reset`
+- `npm start`
 
 ## Execução
 - Ao rodar a aplicação, sera direcionado a uma tela de login, onde tera a opção de acessar a aplicação ou criar sua conta, o processo de criação e autenticação é baseado no metodo de Authentication do firebase. Segue uma conta de acesso padrão:
