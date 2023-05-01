@@ -2,7 +2,7 @@
   "version": 2,
   "builds": [
     {
-      "src": "backend/server.js",
+      "src": "backend/index.js",
       "use": "@vercel/node"
     },
     {
@@ -14,7 +14,27 @@
     }
   ],
   "routes": [
-    { "src": "/api/.*", "dest": "backend/server.js" },
+    { "src": "/api/.*", "dest": "backend/index.js" },
     { "src": "/(.*)", "dest": "frontend/build/$1" }
-  ]
+  ],
+  "env": {
+    "PORT": "3001"
+  },
+  "functions": {
+    "api/*": {
+      "memory": 512,
+      "maxDuration": 10,
+      "runtime": "@vercel/node"
+    }
+  },
+  "webhooks": {
+    "build": "yarn build"
+  },
+  "ignore": [
+    "frontend/.env.local",
+    "frontend/.env.development.local",
+    "frontend/.env.test.local",
+    "frontend/.env.production.local"
+  ],
+  "alias": {}
 }
