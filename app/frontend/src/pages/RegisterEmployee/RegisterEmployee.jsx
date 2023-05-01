@@ -22,39 +22,39 @@ export default function RegisterEmployee() {
   };
 
   const [employeeInfo, setEmployeeInfo] = useState(initialState);
-  const [shouldRedirect, setShouldRedirect] = useState(false);
-  const [imgUrl, setImageUrl] = useState('');
+  const [ setShouldRedirect] = useState(false);
+  const [ setImageUrl] = useState('');
   const [/* progress, */ setProgress] = useState(0);
 
-  
-const handleUploadImage = (e) => {
-  const file = e.target.files[0];
-  if (!file) {
-    return alert('Nenhum arquivo selecionado.');
-  }
-  const storageRef = ref(storage, `images/${file.name}`);
-  const uploadTask = uploadBytesResumable(storageRef, file);
-
-  uploadTask.on(
-    'state_changed',
-    (snapshot) => {
-      const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-      setProgress(progress);
-    },
-    (error) => {
-      console.error(error);
-    },
-    () => {
-      getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-        setEmployeeInfo((prevState) => ({
-          ...prevState,
-          profilePicture: url,
-        }));
-        setImageUrl(url);
-      });
+  const handleUploadImage = (e) => {
+    const file = e.target.files[0];
+    if (!file) {
+      return alert('Nenhum arquivo selecionado.');
     }
-  );
-};
+    const storageRef = ref(storage, `images/${file.name}`);
+    const uploadTask = uploadBytesResumable(storageRef, file);
+
+    uploadTask.on(
+      'state_changed',
+      (snapshot) => {
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        setProgress(progress);
+      },
+      (error) => {
+        console.error(error);
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+          setEmployeeInfo((prevState) => ({
+            ...prevState,
+            profilePicture: url,
+          }));
+          setImageUrl(url);
+        });
+      }
+    );
+  };
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -97,7 +97,6 @@ const handleUploadImage = (e) => {
             handleSubmit={handleSubmit}
             handleInputChange={handleInputChange}
             employeeInfo={employeeInfo}
-            shouldRedirect={shouldRedirect}
             handleUploadImage={handleUploadImage}
           />
         </div>

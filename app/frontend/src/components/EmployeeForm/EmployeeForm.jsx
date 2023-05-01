@@ -12,6 +12,8 @@ export default function EmployeeForm({
   shouldRedirect,
   handleUploadImage,
 }) {
+
+  
   return (
     <div>
       {shouldRedirect && <Redirect to="/home" />}
