@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -9,11 +9,26 @@ export default function EmployeeForm({
   handleSubmit,
   handleInputChange,
   employeeInfo,
-  shouldRedirect,
+  /* shouldRedirect, */
   handleUploadImage,
 }) {
+  const [shouldRedirect, setShouldRedirect] = useState(false);
 
-  
+  const handleFormSubmit = (event) => {
+    event.preventDefault();
+    const isFormValid = Object.values(employeeInfo).every(
+      (value) => value !== ''
+    );
+    if (isFormValid) {
+      setShouldRedirect(true);
+      handleSubmit(event);
+    } else {
+      alert(
+        'Por favor, preencha todos os campos antes de enviar o formulário.'
+      );
+    }
+  };
+
   return (
     <div>
       {shouldRedirect && <Redirect to="/home" />}
@@ -142,7 +157,7 @@ export default function EmployeeForm({
           <option value="Demitido">Demitir</option>
         </TextField>
         <Button
-          onClick={(e) => handleSubmit(e)}
+          onClick={(e) => handleFormSubmit(e)}
           sx={{
             borderRadius: '16px',
             width: '150px',

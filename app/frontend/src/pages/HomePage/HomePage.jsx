@@ -63,9 +63,34 @@ export default function HomePage({ history }) {
     }
   };
 
+  const handleClickDataPdf = async (name) => {
+    const response = await axios.get(
+      `http://localhost:3001/pdfgenerate/${name}`,
+      {
+        responseType: 'blob',
+      }
+    );
+    const url = window.URL.createObjectURL(new Blob([response.data]));
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', 'employee.pdf');
+    document.body.appendChild(link);
+    link.click();
+  };
+
+  const logout = (e) => {
+    e.preventDefault();
+    history.push('/');
+  };
+
+  const toHome = (e) => {
+    e.preventDefault();
+    history.push('/home');
+  };
+
   return (
     <div>
-      <Header />
+      <Header logout={logout} toHome={toHome} />
       <div className="nav-home">
         <Button
           onClick={() => history.push('/home/register')}
@@ -87,6 +112,7 @@ export default function HomePage({ history }) {
         employees={employees}
         deleteUser={getId}
         handleClickPdf={handleClickPdf}
+        handleClickDataPdf={handleClickDataPdf}
       />
       {confirmDelete && (
         <ConfirmDeleteDialog

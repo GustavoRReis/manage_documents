@@ -6,7 +6,7 @@ import { db, storage } from '../../Config/firebase';
 import CardPdf from '../../components/CardPdf/CardPdf';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 
-export default function RegisterEmployee() {
+export default function RegisterEmployee({history}) {
   const initialState = {
     name: '',
     gender: '',
@@ -22,9 +22,10 @@ export default function RegisterEmployee() {
   };
 
   const [employeeInfo, setEmployeeInfo] = useState(initialState);
-  const [ setShouldRedirect] = useState(false);
-  const [ setImageUrl] = useState('');
-  const [/* progress, */ setProgress] = useState(0);
+  const [shouldRedirect, setShouldRedirect] = useState(false);
+  const [imageUrl, setImageUrl] = useState('');
+  const [progress, setProgress] = useState(0);
+  const [isFirstFieldFilled, setIsFirstFieldFilled] = useState(false);
 
   const handleUploadImage = (e) => {
     const file = e.target.files[0];
@@ -59,7 +60,20 @@ export default function RegisterEmployee() {
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setEmployeeInfo({ ...employeeInfo, [name]: value });
+    if (!isFirstFieldFilled && name === 'name' && value !== '') {
+      setIsFirstFieldFilled(true);
+    }
   };
+
+    const logout = (e) => {
+      e.preventDefault();
+      history.push('/');
+    };
+
+    const toHome = (e) => {
+      e.preventDefault();
+      history.push('/home');
+    };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -90,7 +104,7 @@ export default function RegisterEmployee() {
 
   return (
     <div>
-      <Header />
+      <Header logout={logout} toHome={toHome} />
       <div style={{ display: 'flex' }}>
         <div style={{ width: '50%', marginRight: '50px' }}>
           <EmployeeForm
@@ -100,9 +114,11 @@ export default function RegisterEmployee() {
             handleUploadImage={handleUploadImage}
           />
         </div>
-        <div>
-          <CardPdf employeeInfo={employeeInfo} />
-        </div>
+        {isFirstFieldFilled && ( // Renderiza o CardPdf somente se o primeiro campo estiver preenchido
+          <div>
+            <CardPdf employeeInfo={employeeInfo} />
+          </div>
+        )}
       </div>
     </div>
   );

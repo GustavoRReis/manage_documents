@@ -7,8 +7,8 @@ export default function ListEmployee({
   employees,
   deleteUser,
   handleClickPdf,
+  handleClickDataPdf,
 }) {
-  console.log(employees);
   return (
     <table className="table-home">
       <thead>
@@ -34,7 +34,7 @@ export default function ListEmployee({
               <th>{index.situation}</th>
               <th>{index.hireDate.split('-').reverse().join('-')}</th>
               <th>
-                <button onClick={() => handleClickPdf(index.name)}>
+                <button onClick={() => handleClickDataPdf(index.name)}>
                   <FileText size={32} />
                 </button>
               </th>

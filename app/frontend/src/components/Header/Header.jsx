@@ -3,14 +3,14 @@ import React from 'react';
 import logoTaugor from '../../images/logo-taugor.png';
 import './Header.css';
 
-export default function Header() {
+export default function Header({logout, toHome}) {
   return (
     <div className="header-app">
       <img alt="logo-taugor" src={logoTaugor} />
 
       <div>
-        <Button variant="contained">Home</Button>
-        <Button variant="contained">Logout</Button>
+        <Button onClick={toHome} variant="contained">Home</Button>
+        <Button onClick={logout} variant="contained">Logout</Button>
       </div>
     </div>
   );

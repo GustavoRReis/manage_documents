@@ -38,9 +38,26 @@ const registerUser = async () => {
     <div className="page-login">
       <Box component="form" className="box-login">
         <img src={logoTaugor} alt="logo-taugor"></img>
-        <TextField onChange={handleInputChange} name='email' id="email-login" label="Email" type="email" />
-        <TextField onChange={handleInputChange} name='password' id="password-login" label="Password" type="password" />
-        <Button onClick={registerUser} variant="contained">Register</Button>
+        <TextField
+          onChange={handleInputChange}
+          name="email"
+          id="email-login"
+          label="Email"
+          type="email"
+        />
+        <TextField
+          onChange={handleInputChange}
+          name="password"
+          id="password-login"
+          label="Password"
+          type="password"
+        />
+        <Button onClick={registerUser} variant="contained">
+          Registrar
+        </Button>
+        <Button onClick={() => history.push('/') } variant="contained">
+          Cancelar
+        </Button>
         {userInvalid ? (
           <div className="msg-error">
             <h4> {message} </h4>
